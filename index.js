@@ -10,3 +10,6 @@ app.listen(port, function(err) {
 
     console.log(`Server is running on: ${port}`);
 })
+
+app.use('/', require('./routes/index'));
+
