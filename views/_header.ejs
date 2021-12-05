@@ -5,7 +5,9 @@
 
         <% if (locals.user) { %>
             <li>
-                <%= user.name %>
+
+                <a href="/users/profile"><%= user.name %></a>
+                
             </li>
             <li>
                 <form action="/users/sign-out" method="POST">
