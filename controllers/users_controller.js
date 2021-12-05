@@ -3,7 +3,7 @@ const User = require('../models/user');
 module.exports.profile = function(req, res) {
     //return res.end('<h1> User Profile </h1>');
 
-    return res.render('users', {
+    return res.render('users_profile', {
         title: 'Users Profile Page'
     });
 }
@@ -11,7 +11,7 @@ module.exports.profile = function(req, res) {
 module.exports.posts = function(req, res) {
     //return res.end('<h1> User Posts </h1>');
 
-    return res.render('users', {
+    return res.render('users_profile', {
         title: 'Users Posts Page'
     });
 }
