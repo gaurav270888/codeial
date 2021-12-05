@@ -1,3 +1,32 @@
 <header>
     My header
+
+    <ul>
+
+        <% if (locals.user) { %>
+            <li>
+                <%= user.name %>
+            </li>
+            <li>
+                <form action="/users/sign-out" method="POST">
+                    <input type="submit" value="Sign Out">
+                </form>
+            </li>
+        <% } else { %>
+            <li>
+                <form action="/users/sign-in" method="get">
+                    <input type="submit" value="Sign In">
+                </form>
+            </li>
+            <li>
+                <form action="/users/sign-up" method="get">
+                    <input type="submit" value="Sign Up">
+                </form>
+            </li>
+        <% } %>
+
+    </ul>
+
+
 </header>
+
