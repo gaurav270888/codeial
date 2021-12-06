@@ -11,7 +11,7 @@ module.exports.home = function (req, res) {
     //     });
     // });
 
-    // populate user object for each Post using mongoose populate andf exec functions. Look at documentation for more info
+    // populate user object for each Post using mongoose populate and exec functions. Look at documentation for more info
     Post.find({}).
         populate('user').
         exec(function (err, posts) {
