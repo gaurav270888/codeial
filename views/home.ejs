@@ -17,6 +17,11 @@
                     <% for (post of locals.posts) { %>
                         <li>
                             <p>
+                                <% if(locals.user && locals.user.id==post.user.id) { %>
+                                    <small>
+                                        <a href="/posts/destroy/<%= post.id %>">X</a>
+                                    </small>
+                                <% } %>
                                 <%= post.content %>
                                     <br>
                                     <small>
@@ -26,7 +31,8 @@
                             <div class="post-comments">
                                 <% if (locals.user) { %>
                                     <form action="/comments/create" id="new-comments-form" method="POST">
-                                        <textarea name="content" placeholder="Type here to add comment..." required></textarea>
+                                        <textarea name="content" placeholder="Type here to add comment..."
+                                            required></textarea>
                                         <input type="hidden" name="post" value="<%= post._id %>">
                                         <input type="submit" value="Add Comment">
                                     </form>
@@ -37,13 +43,18 @@
 
                                                 <% for (comment of post.comments) { %>
                                                     <!-- <li> -->
-                                                        <p>
-                                                            <%= comment.content %>
-                                                                <br>
-                                                                <small>
-                                                                    <%= comment.user.name %>
-                                                                </small>
-                                                        </p>
+                                                    <p>
+                                                        <% if(locals.user && locals.user.id == comment.user.id) { %>
+                                                            <small>
+                                                                <a href="/comments/destroy/<%= comment.id %>">X</a>
+                                                            </small>
+                                                        <% } %>
+                                                        <%= comment.content %>
+                                                            <br>
+                                                            <small>
+                                                                <%= comment.user.name %>
+                                                            </small>
+                                                    </p>
                                                     <!-- </li> -->
                                                     <% } %>
                                             </ul>

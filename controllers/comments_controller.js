@@ -25,3 +25,24 @@ module.exports.create = function (req, res) {
     })
 
 }
+
+module.exports.destroy = function (req, res) {
+    Comment.findById(req.params.id, function (err, comment) {
+        if (err) {
+            console.log('Error finding the Post');
+            return;
+        }
+        // .id means converting Object id into string. This feature is provided by mongoose
+        if (comment.user == req.user.id) {
+
+            let postId = comment.post;
+            comment.remove();
+
+            Post.findByIdAndUpdate(postId, { $pull : req.params.id }, function (err, post) {
+                return res.redirect('back');
+            });
+        } else {
+            return res.redirect('back');
+        }
+    })
+}
