@@ -1,5 +1,9 @@
 const User = require('../models/user');
 
+// Keeping this controller same for now. Not converting to async await because there is not nested callbacks except for
+// the create method. Also keeping this to use callbacks so that it helps understand how callbacks work and how
+// nested callbacks can become a hell for developers ;)
+
 module.exports.profile = function(req, res) {
     //return res.end('<h1> User Profile </h1>');
 
@@ -26,8 +30,6 @@ module.exports.update = function(req, res) {
         return res.status(401).send('Unauthorized');
     }
 
-    
-    
 }
 
 module.exports.posts = function(req, res) {

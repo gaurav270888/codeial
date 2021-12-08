@@ -5,6 +5,9 @@ const passport = require('passport');
 
 router.get('/profile/:id', passport.checkAuthentication, usersController.profile);
 
+// TODO Profile link from Nav bar is not working right now, since it uses /profile, fix it later
+//router.get('/profile', passport.checkAuthentication, usersController.profile);
+
 router.post('/update/:id', passport.checkAuthentication, usersController.update);
 
 router.get('/posts', usersController.posts);
