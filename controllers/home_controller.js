@@ -8,6 +8,7 @@ module.exports.home = async function (req, res) {
     try {
         // populate user object for each Post using mongoose populate and exec functions. Look at documentation for more info
         let posts = await Post.find({}).
+            sort('-createdAt').
             populate('user').
             populate({
                 path: 'comments',
