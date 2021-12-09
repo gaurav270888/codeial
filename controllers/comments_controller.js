@@ -17,6 +17,20 @@ module.exports.create = async function (req, res) {
 
             post.comments.push(comment);
             post.save();
+
+            if (req.xhr){
+                // Similar for comments to fetch the user's id!
+                //comment = await comment.populate('user', 'name').execPopulate();
+                comment = await comment.populate('user', 'name');
+    
+                return res.status(200).json({
+                    data: {
+                        comment: comment
+                    },
+                    message: "Comment created!"
+                });
+            }
+
             req.flash('success', 'Commented !');
             res.redirect('/');
         } 
@@ -41,11 +55,22 @@ module.exports.destroy = async function (req, res) {
             let postId = comment.post;
             comment.remove();
 
-            await Post.findByIdAndUpdate(postId, { $pull : req.params.id });
-            req.flash('success', 'Commented Delete !');
+            let post = await Post.findByIdAndUpdate(postId, { $pull : req.params.id });
+
+            // send the comment id which was deleted back to the views
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Post deleted"
+                });
+            }
+
+            req.flash('success', 'Commented Deleted !');
             return res.redirect('back');
         } else {
-            req.flash('error', 'You cannot delete this comment');
+            req.flash('error', 'You are not authorized to delete this comment');
             return res.redirect('back');
         }
         
