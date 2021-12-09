@@ -58,7 +58,7 @@
     // method to delete a post from Dom
     let deletePost = function(deleteLink) {
 
-        $(deleteLink).click(function() {
+        $(deleteLink).click(function(e) {
             e.preventDefault();
 
             $.ajax({
@@ -70,9 +70,9 @@
                 error: function (error) {
                     console.log(error.responseText);
                 }
-            })
+            });
 
-        })
+        });
     }
 
 
