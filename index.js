@@ -28,6 +28,8 @@ app.use(cookieParse());
 // use static variable of express to link our static files like css images and js in assets folder
 app.use(express.static('./assets'));
 
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
 // use express-ejs-layouts module to design our layouts
 app.use(expressLayouts);
 // extract Styles and Scripts from the sub pages into the layout and put them in Head and bottom of body respectively 
