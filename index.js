@@ -1,5 +1,6 @@
 const express = require('express');
 const env = require('./config/environment');
+const logger = require('morgan');
 const app = express();
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
@@ -11,7 +12,7 @@ const passportLocal = require('./config/passport-local-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
 const passportGoogle = require('./config/passport-google-oauth2-strategy');
 const MongoStore = require('connect-mongo')(session);
-const sassMiddleware = require('node-sass-middleware');
+const sassMiddleware = require('node-sass');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
@@ -22,14 +23,16 @@ chatServer.listen(5000);
 console.log('chat server is listening on port 5000');
 const path = require('path');
 
-app.use(sassMiddleware({
-    src: path.join(__dirname, env.asset_path, 'scss'),
-    dest: path.join(__dirname, env.asset_path, 'css'),
-    debug: true,
-    outputStyle: 'expanded',
-    prefix: '/css'
+if (env.name == 'development') {
+    app.use(sassMiddleware({
+        src: path.join(__dirname, env.asset_path, 'scss'),
+        dest: path.join(__dirname, env.asset_path, 'css'),
+        debug: true,
+        outputStyle: 'expanded',
+        prefix: '/css'
+    }));
+}
 
-}));
 
 app.use(express.urlencoded());
 
@@ -39,6 +42,8 @@ app.use(cookieParse());
 app.use(express.static(env.asset_path));
 
 app.use('/uploads', express.static(__dirname + '/uploads'));
+
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 // use express-ejs-layouts module to design our layouts
 app.use(expressLayouts);
