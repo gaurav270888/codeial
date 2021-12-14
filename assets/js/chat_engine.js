@@ -4,19 +4,12 @@ class ChatEngine{
         this.userEmail = userEmail;
 
         this.socket = io.connect('http://52.207.246.66:5000');
-        // this.socket = io('https://localhost:5000', {
-        //     "force new connection" : true,
-        //     "reconnectionAttempts": "Infinity", 
-        //     "timeout" : 10000,                  
-        //     "transports" : ["websocket"]
-        // });
 
         if (this.userEmail){
             this.connectionHandler();
         }
 
     }
-
 
     connectionHandler(){
 
