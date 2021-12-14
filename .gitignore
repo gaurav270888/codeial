@@ -1,2 +1,4 @@
 node_modules/
 production_logs
+
+exports.txt
